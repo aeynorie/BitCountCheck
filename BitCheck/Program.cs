@@ -11,12 +11,12 @@ namespace BitCheck
     {
         static void Main(string[] args)
         {
-            ushort data = 0b0000000011111100;
+            ushort data =             0b0000000111111000;
             Int32 maskResult = data & 0b1111111111111111;
             Int32 resultXOR = CalculataionXOR(maskResult);
             Int32 resultNOT = CalculationNOT(resultXOR);
 
-            BitArray bitArray = new BitArray(new int[] { resultNOT });
+            BitArray bitArray = new BitArray(new Int32[] { resultNOT });
 
             BitArray bitAreaData = DefineBitArea(bitArray);
             int countMatchNum = CountMatchNum(bitAreaData);
@@ -25,7 +25,7 @@ namespace BitCheck
 
         static Int32 CalculataionXOR(Int32 data)
         {
-            Int32 resultXOR = (data >> 1) ^ data;
+            Int32 resultXOR = data ^ (data >> 1);
             return resultXOR;
         }
 
@@ -38,12 +38,12 @@ namespace BitCheck
 
         static BitArray DefineBitArea(BitArray data)
         {
-            BitArray BitAreaData = new BitArray(8);
-            for (int i = 2; i<= 8; i++)
+            BitArray BitAreaData = new BitArray(6);
+            for (int i = 2; i<= 7; i++)
             {               
                 for (int j = 0; j < BitAreaData.Length; j++)
                 {
-                    BitAreaData[j] = data[i];
+                    BitAreaData[j] = data.Get(i);
                 }
             }
             return BitAreaData;
@@ -54,7 +54,6 @@ namespace BitCheck
             int countMatch = 0;
             for(int i = 0; i < data.Length; i++)
             {
-                
                 if (data.Get(i) == true)
                 {
                     countMatch++;
